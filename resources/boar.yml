@@ -1,0 +1,18 @@
+---
+# THE NAME HAVE TO BE THE SAME AS THE NAME IN MOBLIST
+# THE FOLDER NAME, WHERE THIS YML FILE IS IN, HAS TO BE THE SAME HOW THE NAME
+# pls do {name}.yml ; {name}.png and {name}.geo
+# in {name}.geo pls use geometry.{name}
+damage: 0
+health: 200
+speed: 1.2
+scale: 1.4
+#working on size of hitbox
+#size: (new EntitySizeInfo(1.8, 1.8));
+#setNameTagAlwaysVisible:
+Ai: "hostile"
+drops:
+  - test:
+      - Id:
+      -
+...

@@ -1,0 +1,5 @@
+name: DemonicCustomMobsV5
+author: DemonicDev
+version: _0.0.2_predev
+api: [4.0.0]
+main: DemonicCM\DemonicDev\Main
