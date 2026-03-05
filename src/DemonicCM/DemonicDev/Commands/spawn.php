@@ -5,6 +5,7 @@ namespace DemonicCM\DemonicDev\Commands;
 /*Pocketmine classes*/
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\console\ConsoleReader;
 use pocketmine\utils\TextFormat as tf;
 use pocketmine\player\Player;
 //use pocketmine\Server;
