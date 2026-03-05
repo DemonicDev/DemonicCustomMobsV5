@@ -3,9 +3,11 @@
 declare(strict_types=1);
 
 namespace DemonicCM\DemonicDev\AI\mobAI;
-
+/** We will swap to virion based pathfinding */
+/*
 use pathfinder\algorithm\AlgorithmSettings;
 use pathfinder\entity\navigator\Navigator;
+*/
 use pocketmine\entity\Location;
 use pocketmine\entity\Human;
 use pocketmine\entity\Entity;
@@ -30,7 +32,7 @@ use DemonicCM\DemonicDev\Main;
 
 
 class hostile extends Human {
-	protected Navigator $navigator;
+	#protected Navigator $navigator;
  
 	public int $dmg;
 	public $attackDelay = 0;
@@ -39,19 +41,23 @@ class hostile extends Human {
     public array $drops;
  
    public function __construct(Location $location, Skin $skin, $cmdmg, $health, $speed, $scale, $drops, ?CompoundTag $nbt = null){
-        $this->navigator = new Navigator($this, null, null,
+       parent::__construct($location, $skin, $nbt);
+        /** here comes implementation for other pathfinder */
+       /*
+       $this->navigator = new Navigator($this, null, null,
             (new AlgorithmSettings())
                 ->setTimeout(0.001)
                 ->setMaxTicks(0)
         );
-        parent::__construct($location, $skin);
+       */
+
 		/*most important line!!! don't change*/
         $this->setcanSaveWithChunk(false);
 		/*mobdata*/
         $this->dmg = $cmdmg;
 		$this->setMaxHealth($health);
 		$this->setHealth($health);
-		$this->navigator->setSpeed($speed);		
+		//$this->navigator->setSpeed($speed);
         $this->setScale($scale);
         $this->drops = $drops;
 	#	$this->setSize(new EntitySizeInfo(1.8, 1.8));
@@ -59,6 +65,8 @@ class hostile extends Human {
     }
 
     public function onUpdate(int $currentTick): bool{
+       return parent::onUpdate($currentTick);
+       /** skip this part since it throws errors at this point! */
 		$this->attackDelay += 1;
 		$pos = $this->getLocation()->asVector3();
 		$target = $this->getWorld()->getNearestEntity($pos, 24, Player::class, false);

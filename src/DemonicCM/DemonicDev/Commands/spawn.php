@@ -19,6 +19,7 @@ class spawn extends Command{
 
 	public function __construct(string $name, Translatable|string $description = "", Translatable|string|null $usageMessage = null, array $aliases = []){
         parent::__construct($name, $description, $usageMessage, $aliases);
+        $this->setPermission("spawn"); //Permission needed for pmmp5
     }
 	
 	public function execute(CommandSender $sender, string $commandLabel, array $args){
@@ -35,7 +36,7 @@ class spawn extends Command{
 	}
 	
 	public function Mobspawn($arg, $sender){
-		Main::getInstance()->Moblist = new Config(Main::getInstance()->getDataFolder() . "Moblist.yml", Config::YAML);
+		Main::getInstance()->Moblist = new Config(Main::getInstance()->getDataFolder() . "moblist.yml", Config::YAML);
 		$mobarry = Main::getInstance()->Moblist->get("mobs");
 		foreach($mobarry as $mob){
 			if($mob == $arg){

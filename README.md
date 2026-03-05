@@ -1,7 +1,7 @@
 # DISCLAIMER
 OUTDATED!!! 
 Code base was designed back for pmmp4
-WORKING ON PMMP5 Version
+on request i will port it to pmmp5
 
 # DemonicCustomMobsV5
 A Pocketmine Plugin, which Provides the posibility to add Custom Mobs, with placing the data into the Plugin_data folder
