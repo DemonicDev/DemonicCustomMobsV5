@@ -13,6 +13,8 @@ class CustomiesLiving extends Living
     use AiManager;
     private string $name = "";
     private array $drops = [];
+
+    private float $damage = 0;
     private float $health = 20;
     private float $speed = 0.7; # AI Speed unused rn
 
@@ -21,8 +23,14 @@ class CustomiesLiving extends Living
 
     public function __construct(Location $location, $data ,?CompoundTag $nbt = null)
     {
+        /*most important line!!! don't change*/
+        $this->setcanSaveWithChunk(false);
+        // fixes the cant use Compoundtag as array error
+        /** Todo: find a workaround so we can store custom mobs in Chunks, but tbh am not the biggest fan of storing entities in worlds files */
+        /** If people want that feature i will try to find a workaround, for now it should be fine */
+
         parent::__construct($location, $nbt);
-        $options = ["name", "drops", "health", "speed", "ai"];
+        $options = ["name", "drops", "damage", "health", "speed", "ai"];
         foreach ($options as $option) {
             try{
                 if(isset($data[$option])){

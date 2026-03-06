@@ -5,9 +5,9 @@ namespace DemonicCM\DemonicDev\RegisterNodes;
 use customiesdevs\customies\entity\CustomiesEntityFactory;
 use DemonicCM\DemonicDev\CustomiesLiving;
 use DemonicCM\DemonicDev\Main;
-use DemonicCM\old\mobAI\hostile;
 use pocketmine\entity\EntityFactory;
 use pocketmine\utils\Config;
+use your\plugin\old\mobAI\hostile;
 
 class CustomiesNode
 {
@@ -46,7 +46,7 @@ class CustomiesNode
         return $classname;
     }
     public function mobexists($name){
-        if(!class_exists("CM_" . $name)){
+        if(!class_exists("CM_" . $name) or !isset($this->mobdata[$name])){
             return null;
         }
         return "CM_" . $name;
@@ -62,6 +62,5 @@ class CustomiesNode
 
     public function getMobdata($name){
         return $this->mobdata[$name];
-
     }
 }

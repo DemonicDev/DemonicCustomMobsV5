@@ -1,0 +1,10 @@
+{
+  "name": "demonicdev/demoniccustommobsv5",
+  "require": {
+    "matze/pathfinder":  "dev-V3-PM5",
+    "pocketmine/pocketmine-mp": "^5.0.0"
+  },
+  "autoload": {
+    "classmap": ["src"]
+  }
+}

@@ -2,24 +2,29 @@
 
 namespace DemonicCM\DemonicDev;
 
+use DemonicCM\DemonicDev\AI\AIs\NoAi;
+use DemonicCM\DemonicDev\AI\AIs\passive;
 use DemonicCM\DemonicDev\Commands\spawn;
 use DemonicCM\DemonicDev\RegisterNodes\{CustomiesNode, HumanNode};
-use DemonicCM\old\mobAI\hostile;
-use pocketmine\entity\EntityDataHelper;
-use pocketmine\entity\EntityFactory;
-use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use pocketmine\world\World;
 
 
 class Main extends PluginBase{
 	
 	public static self $instance;
-    public $Config;
+
+    public Config $Config;
+
     public $Moblist;
-    private $cNode = null;
-    private $hNode = null;
+    private ?object $cNode = null;
+    private ?object $hNode = null;
+
+    private array $Ais = [
+        "default" => NoAi::class,
+        "passive" => passive::class,
+    ];
+
 	public function onLoad(): void
 	{
 		self::$instance = $this;
@@ -29,7 +34,7 @@ class Main extends PluginBase{
     {
         return self::$instance;
     }
-	
+
 	public function onEnable() : void
 	{
 		 $this->getServer()->getCommandMap()->registerAll('Commands',[
@@ -58,12 +63,11 @@ class Main extends PluginBase{
                 "h" => $this->hNode
                 ];
     }
-    public function registerAll(): void{
-        $factory = EntityFactory::getInstance();
-        $factory->register(hostile::class, function(World $world, CompoundTag $tag): hostile{
-            var_dump($tag);
-            return new hostile(EntityDataHelper::parseLocation($tag, $world),  $tag);
-        }, ["demonicdev:custom", "cHuman"]);
+    public function getAi($aiName){
+        if(array_key_exists($aiName, $this->Ais)){
+            return $this->Ais[$aiName];
+        }
+        return $this->Ais["default"];
     }
 	
 }
