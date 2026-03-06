@@ -1,8 +1,6 @@
 # DISCLAIMER
-OUTDATED!!! 
-Code base was Originally designed back for pmmp4
-PMMP5 Branch currently only avoids crashes, but isnt working as intended
-Updates will come!
+Updated partly to pmmp5 with completely new Base, Pathfinding not included for now
+Help Wanted with bug hunting, if u manage to crash the plugin, pls Open an issue with the crash Dump :D
 # UPDATE 0.0.6 -predev
 CustomMobs via Customies working
 HumanMobs working but can crash since not fully done
