@@ -47,6 +47,14 @@ YourMobName:
 Human Mobs dont have animation, me personaly, i do not know if pocketmine supports that at the moment for custom geometries!
 If you have a suggestion or idea how to fix that, feel free to open an issue
 
+## More
+### Thanks to 
+Matze997 for making his Pathfinder Virion which i use for my pathfinding api which can be called by Ai Classes.
+Customies Team, for makeing Customies and thanks to the people that Maintain customies
+### How you can help make this Awesome plugin even better
+If you manage to crash this Plugin or find a bug, feel free to open an Issue! 
+I would be happy, since it would help make me the plugin more bullet proof!
+
 
 
 
