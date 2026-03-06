@@ -2,16 +2,12 @@
 
 namespace DemonicCM\DemonicDev\RegisterNodes;
 
-use DemonicCM\DemonicDev\AI\mobAI\hostile;
 use customiesdevs\customies\entity\CustomiesEntityFactory;
-use pocketmine\entity\Entity;
-use pocketmine\entity\EntityDataHelper;
-use pocketmine\entity\EntityFactory;
-use pocketmine\entity\Location;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\utils\Config;
+use DemonicCM\DemonicDev\CustomiesLiving;
 use DemonicCM\DemonicDev\Main;
-use pocketmine\world\World;
+use DemonicCM\old\mobAI\hostile;
+use pocketmine\entity\EntityFactory;
+use pocketmine\utils\Config;
 
 class CustomiesNode
 {
@@ -36,15 +32,11 @@ class CustomiesNode
     private function pseudoClass($name, $data)
     {
         $networkTypeId = $data["id"];
-        $ai = $data["ai"];
-        $aiclass = $this->aiMap[$ai] ?? null;
-        if($aiclass === null){
-            throw new \RuntimeException("unknown ai: {ai}");
-        }
         $classname = "CM_" . $name;
+        $base = CustomiesLiving::class;
         if (!class_exists($classname)) {
             eval(" 
-                class {$classname} extends {$aiclass} {
+                class {$classname} extends {$base} {
                     public static function getNetworkTypeId(): string {
                         return '{$networkTypeId}';
                     }
@@ -65,14 +57,11 @@ class CustomiesNode
             $classname = $this->pseudoClass($name, $data);
             var_dump($classname);
             CustomiesEntityFactory::getInstance()->registerEntity($classname, $data["id"]);
-            /**  this would be HumanNodeWay btw...
-            try{
-                $factory->register(hostile::class, function(World $world, CompoundTag $tag) use($name, $data): Entity{
-                    return new $data["ai"](EntityDataHelper::parseLocation($tag, $world),  $tag);
-                }, [$data["id"], $name]);
-            }catch (\Exception $e){
-                $this->main->getLogger()->error($e->getMessage());
-            }*/
         }
+    }
+
+    public function getMobdata($name){
+        return $this->mobdata[$name];
+
     }
 }

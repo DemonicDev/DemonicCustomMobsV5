@@ -2,24 +2,16 @@
 
 namespace DemonicCM\DemonicDev;
 
-use DemonicCM\DemonicDev\AI\mobAI\hostile;
-use DemonicCM\DemonicDev\RegisterNodes\CustomiesNode;
-use DemonicCM\DemonicDev\RegisterNodes\HumanNode;
-use pocketmine\entity\Human;
-use pocketmine\plugin\PluginBase;
-use pocketmine\Server;
-
-
-use pocketmine\entity\EntityFactory;
-use pocketmine\entity\EntityDataHelper;
-use pocketmine\world\World;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\utils\Config;
-use pocketmine\utils\TextFormat as tf;
-use pocketmine\entity\Skin;
-
-
 use DemonicCM\DemonicDev\Commands\spawn;
+use DemonicCM\DemonicDev\RegisterNodes\CustomiesNode;
+use DemonicCM\old\mobAI\hostile;
+use pocketmine\entity\EntityDataHelper;
+use pocketmine\entity\EntityFactory;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
+use pocketmine\world\World;
+
 
 class Main extends PluginBase{
 	
@@ -43,6 +35,11 @@ class Main extends PluginBase{
 		 $this->getServer()->getCommandMap()->registerAll('Commands',[
             new spawn("cm-spawn","used to spawn custom mobs","/cm-spawn")
         ]);
+
+        /**
+         * Todo: add Code to fetch custom AIs like plugins for this plugin?
+         */
+
 		$this->saveResource("config.yml", false);
 		$this->Config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
 		if($this->Config->get("CustomiesNode")){

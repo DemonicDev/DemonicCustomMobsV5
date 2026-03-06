@@ -27,29 +27,40 @@ class spawn extends Command{
         if(!$sender instanceof Player){
             $sender->sendMessage("please execute this command in game");
         }else{
-			if(!isset($args[0])) {
+			if(!isset($args[1])) {
 				$sender->sendMessage("Please type '/cm-spawn help'.");
 				return true;
 			}
-			$arg = array_shift($args);
-			$this->Mobspawn($arg, $sender);
+            switch ($args[0]) {
+                case 'help':
+                    $sender->sendMessage(TF::GREEN."cm-spawn [node] [name]");
+                break;
+                case "custom":
+                    $this->customspawn($args[1], $sender);
+            }
 		}
 	}
-	
-	public function Mobspawn($arg, $sender){
-		$nodes = Main::getInstance()->getNodes();
+
+    public function customspawn($name, $sender){
+        $nodes = Main::getInstance()->getNodes();
         $cNode = $nodes["c"];
-        $class = $cNode->mobexists($arg);
+        $class = $cNode->mobexists($name);
         if($class == null){
             $sender->sendMessage(TF::RED . "Couldn't find the specified mob");
             return;
         }
         $loc = $sender->getLocation();
-        $mob = new $class($loc);
+        $data = $cNode->getMobdata($name);
+        $data["name"] = $name;
+        $mob = new $class($loc, $data);
         $mob->spawnToAll();
-        var_dump($mob::getNetworkTypeId());
-        #$spawntask = new SpawnTask();
-        #$spawntask->Spawn($class, $loc);
+    }
+    public function humanspawn($name, $sender){
+        $nodes = Main::getInstance()->getNodes();
+        $cNode = $nodes["h"];
+    }
+	public function Mobspawn($arg, $sender){
+
 	}
 
 }

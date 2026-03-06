@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace DemonicCM\DemonicDev\MobData;
 
-use DemonicCM\DemonicDev\MobData\skincalc\skincalc;
-use DemonicCM\DemonicDev\AI\mobAI\{hostile, passive};
-use DemonicCM\DemonicDev\_resource_processor\mobdata_from_yml as mobdata;
 use DemonicCM\DemonicDev\Main;
-
+use DemonicCM\DemonicDev\MobData\skincalc\skincalc;
+use DemonicCM\old\_resource_processor\mobdata_from_yml as mobdata;
+use DemonicCM\old\mobAI\{passive};
+use DemonicCM\old\mobAI\hostile;
 use pocketmine\item\ItemFactory;
+
 class entity_data{#
 		
 	public function getCMSkin($mob){
