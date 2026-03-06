@@ -2,24 +2,24 @@
 
 namespace DemonicCM\DemonicDev;
 
-use pocketmine\plugin\PluginBase;
-use pocketmine\Server;
-
-
-use pocketmine\entity\EntityFactory;
-use pocketmine\entity\EntityDataHelper as Helper;
-use pocketmine\world\World;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\utils\Config;
-use pocketmine\utils\TextFormat as tf;
-
-
 use DemonicCM\DemonicDev\Commands\spawn;
+use DemonicCM\DemonicDev\RegisterNodes\CustomiesNode;
+use DemonicCM\old\mobAI\hostile;
+use pocketmine\entity\EntityDataHelper;
+use pocketmine\entity\EntityFactory;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
+use pocketmine\world\World;
+
 
 class Main extends PluginBase{
 	
 	public static self $instance;
-	 
+    public $Config;
+    public $Moblist;
+    private $cNode = null;
+    private $hNode = null;
 	public function onLoad(): void
 	{
 		self::$instance = $this;
@@ -35,43 +35,35 @@ class Main extends PluginBase{
 		 $this->getServer()->getCommandMap()->registerAll('Commands',[
             new spawn("cm-spawn","used to spawn custom mobs","/cm-spawn")
         ]);
-		$this->saveResource("Moblist.yml", false);
-		$this->saveResource("Config.yml", false);
-		$this->Config = new Config($this->getDataFolder() . "Config.yml", Config::YAML);
-		$exampledownload = $this->Config->get("download");
-		if($exampledownload === true){
-			if(!file_exists($this->getDataFolder()."\\boar\\boar.geo.json") or !file_exists($this->getDataFolder()."\\boar\\boar.png") or !file_exists($this->getDataFolder()."\\boar\\boar.yml")){
-				$this->getServer()->getLogger()->info(tf::YELLOW. "We will now install the needed data from github");
-				$this->download_example();
-			}
-		}elseif($exampledownload === false){
-			$this->getServer()->getLogger()->info(tf::GREEN. "at Config.yml 'download:' was set to false, so we wont download anything");
-		}else{
-			$this->getServer()->getLogger()->info(tf::RED. "an error accured at 'Config.yml'... ");
-			$this->getServer()->getLogger()->info(tf::RED. "at 'download:' choose between 'true' or 'false'");
-		}
+
+        /**
+         * Todo: add Code to fetch custom AIs like plugins for this plugin?
+         */
+
+		$this->saveResource("config.yml", false);
+		$this->Config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+		if($this->Config->get("CustomiesNode")){
+            $this->cNode = new CustomiesNode($this);
+            $this->getLogger()->info("Customies Node Activated");
+        }
+        if($this->Config->get("HumanNode")){
+            //$hNode = new HumanNode($this);
+            //$this->getLogger()->info("Human Node Activated");
+        }
 
 	}
-		
-	public function download_example(){
-		if(!file_exists($this->getDataFolder() . "boar")){
-			@mkdir($this->getDataFolder()."\\boar");
-		}
-		if(!@copy("https://raw.githubusercontent.com/DemonicDev/testentity/main/boar/boar.geo.json", $this->getDataFolder()."\\boar\\boar.geo.json")){
-			$this->getServer()->getLogger()->info(tf::RED. " THERE WAS AN ERROR WITH DOWNLOADING THE EXSAMPLE MOB PACK [File(1/3)]"); 
-			$this->getServer()->getLogger()->info(tf::GREEN. "PLS CHECK YOUR INTERNET CONNECTION AND RESTART THE SERVER"); 
-		}
-		$png = "boar.png";
-		if(!@copy("https://raw.githubusercontent.com/DemonicDev/testentity/main/boar/boar.png", $this->getDataFolder()."\\boar\\".$png)){
-			$this->getServer()->getLogger()->info(tf::RED. " THERE WAS AN ERROR WITH DOWNLOADING THE EXSAMPLE MOB PACK [File(2/3)]"); 
-			$this->getServer()->getLogger()->info(tf::GREEN. "PLS CHECK YOUR INTERNET CONNECTION AND RESTART THE SERVER"); 
-		}
-		$Econfig = "boar.yml";
-		if(!@copy("https://raw.githubusercontent.com/DemonicDev/testentity/main/boar/boar.yml", $this->getDataFolder()."\\boar\\".$Econfig)){
-			$this->getServer()->getLogger()->info(tf::RED. " THERE WAS AN ERROR WITH DOWNLOADING THE EXSAMPLE MOB PACK [File(3/3)]"); 
-			$this->getServer()->getLogger()->info(tf::GREEN. "PLS CHECK YOUR INTERNET CONNECTION AND RESTART THE SERVER"); 
-		}
-		$this->getServer()->getLogger()->info(tf::GREEN. "Downloaded all resource data"); 
-	}
+
+    public function getNodes(){
+        return ["c" => $this->cNode,
+                "h" => $this->hNode
+                ];
+    }
+    public function registerAll(): void{
+        $factory = EntityFactory::getInstance();
+        $factory->register(hostile::class, function(World $world, CompoundTag $tag): hostile{
+            var_dump($tag);
+            return new hostile(EntityDataHelper::parseLocation($tag, $world),  $tag);
+        }, ["demonicdev:custom", "cHuman"]);
+    }
 	
 }

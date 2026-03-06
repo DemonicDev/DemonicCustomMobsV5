@@ -1,16 +1,15 @@
 <?php
 
-namespace DemonicCM\DemonicDev\AI\mobAI\utils;
+namespace DemonicCM\old\mobAI\utils;
 
 //*Took from revivalpmmp\PureEntities*\\
+/**"https://github.com/RevivalPMMP/PureEntitiesX/blob/stable/src/revivalpmmp/pureentities/utils/MobDamageCalculator.php"**/
 //MOBDAMAGECALCULATOR\\
-use LogLevel;
 use pocketmine\entity\Entity;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\Item;
 use pocketmine\item\ItemIds;
 use pocketmine\Player;
-use DemonicCM\DemonicDev\Main;
 
 /**
  * Class MobDamageCalculator

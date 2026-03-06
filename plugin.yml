@@ -1,5 +1,9 @@
 name: DemonicCustomMobsV5
 author: DemonicDev
-version: _0.0.2_predev
-api: [4.0.0]
+version: _0.0.4_predev
+api: [5.0.0]
 main: DemonicCM\DemonicDev\Main
+#permissions for pmmp5
+permissions:
+  spawn:
+    default: true

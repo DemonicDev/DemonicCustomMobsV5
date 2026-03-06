@@ -1,6 +1,11 @@
 ---
-# do you want, that we automatically download the excample for "Demonic Eagle" mob???
-download: true
+#Dont change this
+version: 0
+# Configuration
+
+# Do u want to Enable the Customies Node?
+CustomiesNode: true
+# HumanNode will always be on (for now)
 
 #more configuration stuff comes in the future ^^
 ...

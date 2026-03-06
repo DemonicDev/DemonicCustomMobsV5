@@ -1,10 +1,8 @@
 <?php
 
-namespace DemonicCM\DemonicDev\_resource_processor;
+namespace DemonicCM\old\_resource_processor;
 
-use DemonicCM\DemonicDev\Main;
-use pocketmine\item\Item;
-use DemonicCM\DemonicDev\_resource_processor\mobdata_from_yml as mobdata;
+use DemonicCM\old\_resource_processor\mobdata_from_yml as mobdata;
 
 class drops_from_yml{
 	

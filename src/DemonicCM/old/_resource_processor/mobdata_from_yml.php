@@ -1,6 +1,6 @@
 <?php
 
-namespace DemonicCM\DemonicDev\_resource_processor;
+namespace DemonicCM\old\_resource_processor;
 
 use DemonicCM\DemonicDev\Main;
 use pocketmine\utils\Config;
@@ -27,6 +27,11 @@ class mobdata_from_yml{
 		Main::getInstance()->mob = new Config(Main::getInstance()->getDataFolder() . $mob . "/" . "$mob.yml", Config::YAML);
 		return Main::getInstance()->mob->get("Ai");
 	}
+    public function getDrops($mob){
+        Main::getInstance()->mob = new Config(Main::getInstance()->getDataFolder() . $mob . "/" . "$mob.yml", Config::YAML);
+        return Main::getInstance()->mob->get("drops");
+    }
+
 	
 
 	

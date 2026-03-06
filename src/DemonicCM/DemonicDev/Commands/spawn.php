@@ -5,6 +5,7 @@ namespace DemonicCM\DemonicDev\Commands;
 /*Pocketmine classes*/
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\console\ConsoleReader;
 use pocketmine\utils\TextFormat as tf;
 use pocketmine\player\Player;
 //use pocketmine\Server;
@@ -19,31 +20,47 @@ class spawn extends Command{
 
 	public function __construct(string $name, Translatable|string $description = "", Translatable|string|null $usageMessage = null, array $aliases = []){
         parent::__construct($name, $description, $usageMessage, $aliases);
+        $this->setPermission("spawn"); //Permission needed for pmmp5
     }
 	
 	public function execute(CommandSender $sender, string $commandLabel, array $args){
         if(!$sender instanceof Player){
             $sender->sendMessage("please execute this command in game");
         }else{
-			if(!isset($args[0])) {
+			if(!isset($args[1])) {
 				$sender->sendMessage("Please type '/cm-spawn help'.");
 				return true;
 			}
-			$arg = array_shift($args);
-			$this->Mobspawn($arg, $sender);
+            switch ($args[0]) {
+                case 'help':
+                    $sender->sendMessage(TF::GREEN."cm-spawn [node] [name]");
+                break;
+                case "custom":
+                    $this->customspawn($args[1], $sender);
+            }
 		}
 	}
-	
+
+    public function customspawn($name, $sender){
+        $nodes = Main::getInstance()->getNodes();
+        $cNode = $nodes["c"];
+        $class = $cNode->mobexists($name);
+        if($class == null){
+            $sender->sendMessage(TF::RED . "Couldn't find the specified mob");
+            return;
+        }
+        $loc = $sender->getLocation();
+        $data = $cNode->getMobdata($name);
+        $data["name"] = $name;
+        $mob = new $class($loc, $data);
+        $mob->spawnToAll();
+    }
+    public function humanspawn($name, $sender){
+        $nodes = Main::getInstance()->getNodes();
+        $cNode = $nodes["h"];
+    }
 	public function Mobspawn($arg, $sender){
-		Main::getInstance()->Moblist = new Config(Main::getInstance()->getDataFolder() . "Moblist.yml", Config::YAML);
-		$mobarry = Main::getInstance()->Moblist->get("mobs");
-		foreach($mobarry as $mob){
-			if($mob == $arg){
-				$loc = $sender->getLocation();
-				$spawntask = new SpawnTask();
-				$spawntask->Spawn($mob, $loc);
-			}
-		}
+
 	}
 
 }

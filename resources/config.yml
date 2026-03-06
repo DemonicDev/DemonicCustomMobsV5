@@ -1,0 +1,15 @@
+---
+#Dont change this
+version: 0
+# Configuration
+
+# Do u want to Enable the Customies Node?
+CustomiesNode: true
+# Do u want to Enable the Human Node
+HumanNode: true
+# Disclaimer, if both Nodes are offline, No Mobs will be registered
+# CustomiesNode Needs you to have the Plugin Customies Installed
+# HumanNode works vanilla, by Registering Entities taking Humans as base, and applying them (4d) "player" skins
+
+#more configuration stuff comes in the future ^^
+...

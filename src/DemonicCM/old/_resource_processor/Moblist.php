@@ -1,8 +1,6 @@
 <?php
 
-namespace DemonicCM\DemonicDev\_resource_processor;
-
-use DemonicCM\DemonicDev\Main;
+namespace DemonicCM\old\_resource_processor;
 
 class Moblist
 {
