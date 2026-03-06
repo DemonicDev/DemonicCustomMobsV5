@@ -3,6 +3,11 @@ OUTDATED!!!
 Code base was Originally designed back for pmmp4
 PMMP5 Branch currently only avoids crashes, but isnt working as intended
 Updates will come!
+# UPDATE 0.0.4-predev
+CustomMobs via Customies partly working
+-> mob dead -> crash
+Extremly unstable, but u can spawn already Mobs
+-> No AI
 
 # DemonicCustomMobsV5
 A Pocketmine Plugin, which Provides the posibility to add Custom Mobs, with placing the data into the Plugin_data folder
