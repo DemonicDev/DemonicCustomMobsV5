@@ -10,6 +10,7 @@ use pathfinder\entity\navigator\Navigator;
 */
 use pocketmine\entity\Location;
 use pocketmine\entity\Human;
+use pocketmine\entity\Living;
 use pocketmine\entity\Entity;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -31,7 +32,8 @@ use DemonicCM\DemonicDev\AI\mobAI\utils\mobdmgcalc as MobDamageCalculator;
 use DemonicCM\DemonicDev\Main;
 
 
-class hostile extends Human {
+class hostile extends Living {
+#class hostile extends Human {
 	#protected Navigator $navigator;
  
 	public int $dmg;
@@ -39,9 +41,25 @@ class hostile extends Human {
 	public $targetposition;
 
     public array $drops;
- 
-   public function __construct(Location $location, Skin $skin, $cmdmg, $health, $speed, $scale, $drops, ?CompoundTag $nbt = null){
-       parent::__construct($location, $skin, $nbt);
+    public function getName(): string
+    {
+        return "hostile";
+        // TODO: Implement getName() method.
+    }
+    public function getInitialSizeInfo(): EntitySizeInfo
+    {
+        return new EntitySizeInfo(1.0,0.7);
+    }
+
+    public static function getNetworkTypeId(): string
+    {
+        return "test";
+    }
+
+    public function __construct(Location $location, ?CompoundTag $nbt = null){
+   #public function __construct(Location $location, Skin $skin, $cmdmg, $health, $speed, $scale, $drops, ?CompoundTag $nbt = null){
+       parent::__construct($location,  $nbt);
+       #parent::__construct($location, $skin, $nbt);
         /** here comes implementation for other pathfinder */
        /*
        $this->navigator = new Navigator($this, null, null,
@@ -54,12 +72,12 @@ class hostile extends Human {
 		/*most important line!!! don't change*/
         $this->setcanSaveWithChunk(false);
 		/*mobdata*/
-        $this->dmg = $cmdmg;
-		$this->setMaxHealth($health);
-		$this->setHealth($health);
+        #$this->dmg = $cmdmg;
+		#$this->setMaxHealth($health);
+		#$this->setHealth($health);
 		//$this->navigator->setSpeed($speed);
-        $this->setScale($scale);
-        $this->drops = $drops;
+        #$this->setScale($scale);
+        #$this->drops = $drops;
 	#	$this->setSize(new EntitySizeInfo(1.8, 1.8));
 	#	$this->setNameTagAlwaysVisible(true);
     }

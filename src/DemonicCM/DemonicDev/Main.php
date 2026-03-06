@@ -4,6 +4,7 @@ namespace DemonicCM\DemonicDev;
 
 use DemonicCM\DemonicDev\AI\mobAI\hostile;
 use DemonicCM\DemonicDev\RegisterNodes\CustomiesNode;
+use DemonicCM\DemonicDev\RegisterNodes\HumanNode;
 use pocketmine\entity\Human;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
@@ -25,12 +26,12 @@ class Main extends PluginBase{
 	public static self $instance;
     public $Config;
     public $Moblist;
+    private $cNode = null;
+    private $hNode = null;
 	public function onLoad(): void
 	{
 		self::$instance = $this;
 	}
-
-
 	
 	public static function getInstance(): Main
     {
@@ -42,16 +43,24 @@ class Main extends PluginBase{
 		 $this->getServer()->getCommandMap()->registerAll('Commands',[
             new spawn("cm-spawn","used to spawn custom mobs","/cm-spawn")
         ]);
-		$this->saveResource("moblist.yml", false);
-		$this->saveResource("Config.yml", false);
-		$this->Config = new Config($this->getDataFolder() . "Config.yml", Config::YAML);
-        $this->registerAll();
+		$this->saveResource("config.yml", false);
+		$this->Config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
 		if($this->Config->get("CustomiesNode")){
-            $cNode = new CustomiesNode($this);
+            $this->cNode = new CustomiesNode($this);
             $this->getLogger()->info("Customies Node Activated");
+        }
+        if($this->Config->get("HumanNode")){
+            //$hNode = new HumanNode($this);
+            //$this->getLogger()->info("Human Node Activated");
         }
 
 	}
+
+    public function getNodes(){
+        return ["c" => $this->cNode,
+                "h" => $this->hNode
+                ];
+    }
     public function registerAll(): void{
         $factory = EntityFactory::getInstance();
         $factory->register(hostile::class, function(World $world, CompoundTag $tag): hostile{

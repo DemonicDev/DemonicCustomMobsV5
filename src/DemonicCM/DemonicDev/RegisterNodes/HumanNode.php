@@ -31,6 +31,5 @@ class HumanNode
         }catch (\Exception $e){
             $this->main->getLogger()->error($e->getMessage());
         }
-        }
     }
 }

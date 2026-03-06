@@ -53,10 +53,17 @@ class CustomiesNode
         }
         return $classname;
     }
+    public function mobexists($name){
+        if(!class_exists("CM_" . $name)){
+            return null;
+        }
+        return "CM_" . $name;
+    }
     private function registerAll(){
         $factory = EntityFactory::getInstance();
         foreach ($this->mobdata as $name => $data) {
             $classname = $this->pseudoClass($name, $data);
+            var_dump($classname);
             CustomiesEntityFactory::getInstance()->registerEntity($classname, $data["id"]);
             /**  this would be HumanNodeWay btw...
             try{

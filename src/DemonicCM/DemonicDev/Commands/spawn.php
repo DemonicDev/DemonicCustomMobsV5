@@ -37,15 +37,19 @@ class spawn extends Command{
 	}
 	
 	public function Mobspawn($arg, $sender){
-		Main::getInstance()->Moblist = new Config(Main::getInstance()->getDataFolder() . "moblist.yml", Config::YAML);
-		$mobarry = Main::getInstance()->Moblist->get("mobs");
-		foreach($mobarry as $mob){
-			if($mob == $arg){
-				$loc = $sender->getLocation();
-				$spawntask = new SpawnTask();
-				$spawntask->Spawn($mob, $loc);
-			}
-		}
+		$nodes = Main::getInstance()->getNodes();
+        $cNode = $nodes["c"];
+        $class = $cNode->mobexists($arg);
+        if($class == null){
+            $sender->sendMessage(TF::RED . "Couldn't find the specified mob");
+            return;
+        }
+        $loc = $sender->getLocation();
+        $mob = new $class($loc);
+        $mob->spawnToAll();
+        var_dump($mob::getNetworkTypeId());
+        #$spawntask = new SpawnTask();
+        #$spawntask->Spawn($class, $loc);
 	}
 
 }
