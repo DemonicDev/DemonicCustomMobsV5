@@ -1,5 +1,5 @@
 ---
-Boar:
+boar:
   damage: 0
   health: 20
   speed: 0.7
@@ -11,7 +11,7 @@ Boar:
     #  - [string_id, min, max, percentage]
     - ["iron_ingot", 1, 2, 40]
   #id: "demonicdev:boar"
-Pig:
+pig:
   damage: 0
   health: 20
   speed: 1

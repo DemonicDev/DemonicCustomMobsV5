@@ -3,7 +3,7 @@
 namespace DemonicCM\DemonicDev;
 
 use DemonicCM\DemonicDev\Commands\spawn;
-use DemonicCM\DemonicDev\RegisterNodes\CustomiesNode;
+use DemonicCM\DemonicDev\RegisterNodes\{CustomiesNode, HumanNode};
 use DemonicCM\old\mobAI\hostile;
 use pocketmine\entity\EntityDataHelper;
 use pocketmine\entity\EntityFactory;
@@ -47,8 +47,8 @@ class Main extends PluginBase{
             $this->getLogger()->info("Customies Node Activated");
         }
         if($this->Config->get("HumanNode")){
-            //$hNode = new HumanNode($this);
-            //$this->getLogger()->info("Human Node Activated");
+            $this->hNode = new HumanNode($this);
+            $this->getLogger()->info("Human Node Activated");
         }
 
 	}

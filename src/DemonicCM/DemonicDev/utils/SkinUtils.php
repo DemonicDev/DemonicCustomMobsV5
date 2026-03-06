@@ -7,7 +7,7 @@ use pocketmine\entity\Skin;
 
 class SkinUtils
 {
-    public static function skinCalculate($entityName){
+    public static function skinCalculate($entityName): ?Skin{
         $entitySkinPNG = $entityGeometryName = $entityGeometryJSONFile = $folder = $entityName;
         $skinID = $entityName;
         /** Make Skin Data. */

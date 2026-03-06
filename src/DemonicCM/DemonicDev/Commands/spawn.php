@@ -38,8 +38,14 @@ class spawn extends Command{
                 case 'help':
                     $sender->sendMessage(TF::GREEN."cm-spawn [node] [name]");
                 break;
+                case "c":
                 case "custom":
                     $this->customspawn($args[1], $sender);
+                break;
+                case "h":
+                case "human":
+                    $this->humanspawn($args[1], $sender);
+                break;
             }
 		}
 	}
@@ -67,7 +73,7 @@ class spawn extends Command{
         }
         $loc = $sender->getLocation();
         $data = $hNode->getMobdata($name);
-        $skin = SkinUtils::skinCalculate($name);
+        $skin = SkinUtils::skinCalculate($data["skin"]);
         $mob = new HumanLiving($loc, $skin, $data);
         $mob->spawnToAll();
     }
