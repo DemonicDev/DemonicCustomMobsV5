@@ -1,6 +1,46 @@
 ---
 Boar:
-
+  damage: 0
+  health: 20
+  speed: 0.7
+  scale: 1.7
+  size: [1.0, 0.7]
   ai: "hostile"
-  id: "demonicdev:boar"
+  id: "scc:slate_boar"
+  drops:
+    #  - [string_id, min, max, percentage]
+    - ["iron_ingot", 1, 2, 40]
+  #id: "demonicdev:boar"
+Pig:
+  damage: 0
+  health: 20
+  speed: 1
+  scale: 1
+  size: [1.0,1.0]
+  ai: "passive"
+  id: "minecraft:pig"
+  drops:
+    - ["porkchop", 1, 2, 100]
+chicken:
+  damage: 0
+  health: 8
+  speed: 1
+  scale: 1
+  size: [0.5, 0.5]
+  ai: "passive"
+  id: "minecraft:chicken"
+  drops:
+    - ["chicken", 1, 1, 100]
+    - ["feather", 1, 2, 40]
+cow:
+  damage: 0
+  health: 20
+  speed: 1
+  scale: 1
+  size: [1.0, 1.0]
+  ai: "passive"
+  id: "minecraft:cow"
+  drops:
+    - ["beef", 1, 2, 100]
+    - ["leather", 1, 1, 30]
 ...

@@ -3,6 +3,9 @@
 namespace DemonicCM\DemonicDev\Commands;
 
 /*Pocketmine classes*/
+
+use DemonicCM\DemonicDev\HumanLiving;
+use DemonicCM\DemonicDev\utils\SkinUtils;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\console\ConsoleReader;
@@ -44,7 +47,7 @@ class spawn extends Command{
     public function customspawn($name, $sender){
         $nodes = Main::getInstance()->getNodes();
         $cNode = $nodes["c"];
-        $class = $cNode->mobexists($name);
+        $class = $cNode?->mobexists($name);
         if($class == null){
             $sender->sendMessage(TF::RED . "Couldn't find the specified mob");
             return;
@@ -57,10 +60,15 @@ class spawn extends Command{
     }
     public function humanspawn($name, $sender){
         $nodes = Main::getInstance()->getNodes();
-        $cNode = $nodes["h"];
+        $hNode = $nodes["h"];
+        if(!$hNode?->mobexists($name)){
+            $sender->sendMessage(TF::RED . "Couldn't find the specified mob");
+            return;
+        }
+        $loc = $sender->getLocation();
+        $data = $hNode->getMobdata($name);
+        $skin = SkinUtils::skinCalculate($name);
+        $mob = new HumanLiving($loc, $skin, $data);
+        $mob->spawnToAll();
     }
-	public function Mobspawn($arg, $sender){
-
-	}
-
 }

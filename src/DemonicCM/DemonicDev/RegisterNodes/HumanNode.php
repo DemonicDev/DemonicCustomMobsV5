@@ -10,6 +10,8 @@ class HumanNode
 {
     private $main;
 
+    private $moblist = [];
+
     public function __construct(Main $main){
         $this->main = $main;
     }
@@ -28,8 +30,13 @@ class HumanNode
             $factory->register(hostile::class, function(World $world, CompoundTag $tag) use($name, $data): Entity{
                 return new $data["ai"](EntityDataHelper::parseLocation($tag, $world),  $tag);
             }, [$data["id"], $name]);
+            $this->moblist[] = $name;
         }catch (\Exception $e){
             $this->main->getLogger()->error($e->getMessage());
         }
+    }
+
+    public function mobexists($name){
+        return in_array($name, $this->moblist);
     }
 }

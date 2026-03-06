@@ -9,7 +9,7 @@ use pocketmine\nbt\tag\CompoundTag;
 
 class HumanLiving extends Human
 {
-    public function __construct(Location $location, Skin $skin, ?CompoundTag $nbt = null)
+    public function __construct(Location $location, Skin $skin, $data, ?CompoundTag $nbt = null)
     {
         parent::__construct($location, $skin, $nbt);
     }
