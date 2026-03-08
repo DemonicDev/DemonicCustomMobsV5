@@ -8,7 +8,6 @@ use matze\pathfinder\rule\default\EntitySizeRule;
 use matze\pathfinder\rule\default\NeedsAirRule;
 use matze\pathfinder\rule\default\NeedsWaterRule;
 use pocketmine\math\Vector3;
-use pocketmine\utils\TextFormat;
 use matze\pathfinder\Pathfinder;
 use matze\pathfinder\setting\Settings;
 trait AiManager

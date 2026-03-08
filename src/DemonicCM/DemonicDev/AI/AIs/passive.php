@@ -28,7 +28,6 @@ class passive{
     private $pathIndex = 0;
 
     public function runai(){
-
         // Recalculate path every N ticks
         if ($this->caller->ticksLived % self::RECALC_INTERVAL === 0) {
             $to = $this->caller->getPosition()->asVector3()->add(mt_rand(0,32) - 16, 0, mt_rand(0,32) - 16);
@@ -50,7 +49,6 @@ class passive{
         if (empty($this->currentPath)) {
             return;
         }
-
         // Skip waypoints we've already passed
         if (!isset($this->currentPath[$this->pathIndex])) {
             $this->currentPath = []; // Path finished
@@ -85,17 +83,10 @@ class passive{
         }
 
         $this->caller->setMotion($motion);
-
         // Face the direction of movement
         $this->caller->setRotation(
             rad2deg(atan2(-$dx, $dz)),
             $this->caller->getLocation()->pitch
         );
-
-
-
     }
-
-
-
 }

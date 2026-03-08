@@ -22,6 +22,8 @@ class HumanLiving extends Human
     public string $ai = "braindead";
     public function __construct(Location $location, Skin $skin, $data, ?CompoundTag $nbt = null)
     {
+        /*most important line!!! don't change*/
+        $this->setcanSaveWithChunk(false);
         parent::__construct($location, $skin, $nbt);
         $options = ["name", "drops", "damage", "health", "speed", "ai"];
         foreach ($options as $option) {

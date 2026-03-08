@@ -2,6 +2,7 @@
 
 namespace DemonicCM\DemonicDev;
 
+use DemonicCM\DemonicDev\AI\AIs\hostile;
 use DemonicCM\DemonicDev\AI\AIs\NoAi;
 use DemonicCM\DemonicDev\AI\AIs\passive;
 use DemonicCM\DemonicDev\Commands\spawn;
@@ -23,6 +24,7 @@ class Main extends PluginBase{
     private array $Ais = [
         "default" => NoAi::class,
         "passive" => passive::class,
+        "hostile" => hostile::class,
     ];
 
 	public function onLoad(): void
@@ -57,7 +59,6 @@ class Main extends PluginBase{
         }
 
 	}
-
     public function getNodes(){
         return ["c" => $this->cNode,
                 "h" => $this->hNode
@@ -68,6 +69,10 @@ class Main extends PluginBase{
             return $this->Ais[$aiName];
         }
         return $this->Ais["default"];
+    }
+
+    public static function registerAi(string $aiName, string $class){
+        self::getInstance()->Ais[$aiName] = $class;
     }
 	
 }

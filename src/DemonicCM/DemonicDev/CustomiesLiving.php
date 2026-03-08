@@ -14,7 +14,7 @@ class CustomiesLiving extends Living
     private string $name = "";
     private array $drops = [];
 
-    private float $damage = 0;
+    public float $damage = 0;
     private float $health = 20;
     private float $speed = 0.7; # AI Speed unused rn
 
